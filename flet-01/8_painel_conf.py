@@ -3,7 +3,8 @@ import flet as ft
 def main(page: ft.Page):
     page.title = "Painel de Configuração"
     page.padding = ft.padding.only(top=40, left=20, right=20, bottom=20)
-    
+
+
     # Área de preview
     area_preview = ft.Container(
         content=ft.Text("Texto de exemplo para configurar 🎨", size=16, color=ft.Colors.BLACK),
