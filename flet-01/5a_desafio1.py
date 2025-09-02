@@ -60,7 +60,7 @@ def main(page: ft.Page):
     def mostrar_erro(mensagem):
         """Mostra mensagem de erro"""
         cartao_perfil.content = ft.Column([
-            ft.Icon(ft.icons.ERROR, color=ft.Colors.RED, size=40),
+            ft.Icon(ft.Icons.ERROR, color=ft.Colors.RED, size=40),
             ft.Text(f"{mensagem}", color=ft.Colors.RED, text_align=ft.TextAlign.CENTER)
         ],
         horizontal_alignment=ft.CrossAxisAlignment.CENTER)
@@ -84,7 +84,7 @@ def main(page: ft.Page):
             cor_icone = ft.Colors.PURPLE
 
         cartao_perfil.content = ft.Column([
-            ft.Icon(ft.icons.PERSON, size=60, color=cor_icone),
+            ft.Icon(ft.Icons.PERSON, size=60, color=cor_icone),
             ft.Text(campo_nome.value, size=20, weight=ft.FontWeight.BOLD),
             ft.Text(f"{idade} anos ({categoria})", size=14, color=ft.Colors.GREY_600),
             ft.Text(f"Hobby: {dropdown_hobby.value}", size=14),

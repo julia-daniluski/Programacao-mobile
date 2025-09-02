@@ -40,7 +40,7 @@ def main(page: ft.Page):
             )
 
             excluir_btn = ft.IconButton(
-                icon=ft.icons.DELETE,
+                icon=ft.Icons.DELETE,
                 tooltip="Excluir tarefa",
                 on_click=lambda e, i=i: excluir_tarefa(i),
                 icon_color=ft.Colors.RED

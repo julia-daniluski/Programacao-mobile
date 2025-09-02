@@ -101,6 +101,22 @@ def main(page: ft.Page):
             "tamanho": "Grande"
         },
         {
+            "nome": "Sapo", 
+            "emoji": "🐸", 
+            "descricao": "anfíbio", 
+            "cor": ft.Colors.GREEN_600, 
+            "categoria": "Selvagem", 
+            "tamanho": "Pequeno"
+        },
+        {
+            "nome": "Hamster", 
+            "emoji": "🐹", 
+            "descricao": "Ratinho doméstico", 
+            "cor": ft.Colors.GREY_600, 
+            "categoria": "Doméstico", 
+            "tamanho": "Pequeno"
+        },
+        {
             "nome": "Golfinho", 
             "emoji": "🐬", 
             "descricao": "Mamífero marinho", 
