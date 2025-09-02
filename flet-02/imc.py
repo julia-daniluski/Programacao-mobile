@@ -100,7 +100,7 @@ def main(page: ft.Page):
 
         page.update()
 
-    # ===================== AppBar =====================
+    # ===================== AppBar/Header =====================
     page.appbar = ft.AppBar(
         leading=ft.Icon(ft.Icons.MULTILINE_CHART),
         leading_width=40,
