@@ -102,7 +102,7 @@ def main(page: ft.Page):
 
     # ===================== AppBar/Header =====================
     page.appbar = ft.AppBar(
-        leading=ft.Icon(ft.Icons.MULTILINE_CHART),
+         leading=ft.Image(src="https://cdn-icons-png.flaticon.com/512/10523/10523224.png", width=40, height=40, fit=ft.ImageFit.CONTAIN), # Ajuste o caminho e o tamanho conforme necessário
         leading_width=40,
         title=ft.Text("Calculadora IMC"),
         center_title=False,
@@ -111,9 +111,7 @@ def main(page: ft.Page):
         actions=[
             ft.Row(
                 controls=[
-                    ft.Text("☼"),
                     ft.Switch(value=False, on_change=alternar_tema),
-                    ft.Text("☾"),
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,
             )
