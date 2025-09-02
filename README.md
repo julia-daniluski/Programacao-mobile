@@ -16,7 +16,7 @@
 4. Executar o simulador:
 ```flet run --web nomearquivo.py```
 
-# Exercícios
+# FLET-01
 
 ## 1 - Primeiro app
 Foi desenvolvida uma interface simples como exemplo para o uso de **Flet** e **Python** na criação de aplicativos.  
@@ -93,5 +93,19 @@ No desafio final, desenvolvemos uma lista de tarefas (**To-Do List**) com funç�
 
 
 https://github.com/user-attachments/assets/affb3e66-d949-41c7-8b90-8784adaf6747
+
+# FLET-02
+
+No segundo exercício, tivemos o desafio de **desenvolver uma calculadora de IMC** totalmente do zero utilizando **Python e Flet**.  
+
+A aplicação permite ao usuário inserir seu **peso**, **altura** e **gênero**, e retorna o cálculo do **Índice de Massa Corporal (IMC)** junto com a **classificação correspondente** (abaixo do peso, peso normal, sobrepeso, obesidade, etc).  
+
+
+
+
+https://github.com/user-attachments/assets/8bc45364-4b51-42a2-981a-4ed215d08d02
+
+
+
 
 
