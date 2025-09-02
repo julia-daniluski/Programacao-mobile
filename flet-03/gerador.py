@@ -3,10 +3,10 @@ import random
 import string
 
 def main(page: ft.Page):
-    page.title = "Gerador de Senhas"
+    page.title = "Gerador e Analisador de Senhas"
     page.theme_mode = ft.ThemeMode.LIGHT
     page.window_width = 550
-    page.window_height = 600
+    page.window_height = 700
     page.padding = 20
 
     senha_atual = ""
@@ -45,7 +45,6 @@ def main(page: ft.Page):
             text_display.value = f"Senha copiada: {senha_atual}"
             text_display.visible = True
             page.update()
-
             try:
                 page.set_clipboard(senha_atual)
             except:
@@ -68,6 +67,34 @@ def main(page: ft.Page):
         theme_button.icon = ft.Icons.DARK_MODE if is_dark else ft.Icons.LIGHT_MODE
         page.update()
 
+    # ---- Função para analisar senha digitada ----
+    def analisar_senha(e):
+        senha = senha_input.value
+        if not senha:
+            analise_text.value = "Digite uma senha para analisar."
+            analise_text.color = ft.Colors.ORANGE
+        else:
+            problemas = []
+            if len(senha) < 8:
+                problemas.append("❌ Mínimo de 8 caracteres")
+            if not any(c.islower() for c in senha):
+                problemas.append("❌ Precisa de letra minúscula")
+            if not any(c.isupper() for c in senha):
+                problemas.append("❌ Precisa de letra maiúscula")
+            if not any(c.isdigit() for c in senha):
+                problemas.append("❌ Precisa de número")
+            if not any(c in string.punctuation for c in senha):
+                problemas.append("❌ Precisa de símbolo")
+
+            if problemas:
+                analise_text.value = "Senha fraca:\n" + "\n".join(problemas)
+                analise_text.color = ft.Colors.RED
+            else:
+                analise_text.value = "✅ Senha forte!"
+                analise_text.color = ft.Colors.GREEN
+        analise_text.visible = True
+        page.update()
+
     # ---------------- COMPONENTES ----------------
     is_dark = False
 
@@ -80,7 +107,7 @@ def main(page: ft.Page):
         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
         vertical_alignment=ft.CrossAxisAlignment.CENTER,
         controls=[
-            ft.Text("🔐 Gerador de Senhas", size=28, weight="bold"),
+            ft.Text("🔐 Gerador e Analisador de Senhas", size=22, weight="bold"),
             theme_button
         ]
     )
@@ -92,8 +119,8 @@ def main(page: ft.Page):
         width=300,
         bgcolor=ft.Colors.PURPLE_100,
         border_color=ft.Colors.PURPLE,
-        color=ft.Colors.BLACK,  # texto sempre preto
-        label_style=ft.TextStyle(color=ft.Colors.BLACK)  # label sempre preto
+        color=ft.Colors.BLACK,
+        label_style=ft.TextStyle(color=ft.Colors.BLACK)
     )
 
     text_display = ft.Text(
@@ -181,17 +208,53 @@ def main(page: ft.Page):
         width=250
     )
 
+    # ---- Área para analisar senha digitada ----
+    senha_input = ft.TextField(
+        label="Digite sua senha",
+        password=True,
+        can_reveal_password=True,
+        width=200,
+        border_color=ft.Colors.PURPLE
+    )
+
+    enviar_btn = ft.ElevatedButton(
+        text="Enviar",
+        on_click=analisar_senha,
+        color=ft.Colors.WHITE,
+        bgcolor=ft.Colors.PURPLE,
+        width=100
+    )
+
+    analise_text = ft.Text(
+        value="",
+        visible=False,
+        size=14,
+        weight="bold"
+    )
+
     # ---------------- LAYOUT ----------------
     page.add(
         ft.Column(
             [
                 title_switch_row,
                 senha_output,
+                senha_input,
                 text_display,
                 ft.Row([copiar_btn, limpar_btn], spacing=10, alignment="center"),
                 slider,
                 preferencias_column,
                 gerar_button,
+                ft.Divider(),
+                # linha com campo, botão e resultado lado a lado
+                ft.Row(
+                    [
+                        enviar_btn,
+                        analise_text
+                    ],
+                    spacing=10,
+                    alignment=ft.MainAxisAlignment.START,
+                    vertical_alignment=ft.CrossAxisAlignment.START
+                )
             ],
             alignment=ft.MainAxisAlignment.START,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
