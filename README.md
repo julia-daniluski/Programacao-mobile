@@ -102,7 +102,8 @@ A aplicação permite ao usuário inserir seu **peso**, **altura** e **gênero**
 
 
 
-Uploading vídeo.mp4…
+
+https://github.com/user-attachments/assets/8bc45364-4b51-42a2-981a-4ed215d08d02
 
 
 
