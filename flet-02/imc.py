@@ -107,6 +107,7 @@ def main(page: ft.Page):
         title=ft.Text("Calculadora IMC"),
         center_title=False,
         bgcolor=ft.Colors.DEEP_PURPLE,
+        color=ft.Colors.WHITE,
         actions=[
             ft.Row(
                 controls=[
