@@ -9,9 +9,9 @@ def main(page: ft.Page):
     page.window_height = 600
     page.padding = 20
 
-    # Variável para armazenar a senha atual
     senha_atual = ""
 
+    # ---------------- FUNÇÕES ----------------
     def gerar_senha(e):
         nonlocal senha_atual
         comprimento = int(slider.value)
@@ -31,10 +31,12 @@ def main(page: ft.Page):
             senha_output.value = senha
             senha_atual = senha
             copiar_btn.visible = True
+            limpar_btn.visible = True
         else:
             senha_output.value = "Selecione ao menos um tipo de caractere."
             senha_atual = ""
             copiar_btn.visible = False
+            limpar_btn.visible = False
 
         page.update()
 
@@ -44,11 +46,20 @@ def main(page: ft.Page):
             text_display.visible = True
             page.update()
 
-            # Opcional: copiar para área de transferência
             try:
                 page.set_clipboard(senha_atual)
             except:
-                pass  # Ignora se falhar
+                pass
+
+    def limpar_senha(e):
+        nonlocal senha_atual
+        senha_atual = ""
+        senha_output.value = ""
+        text_display.value = ""
+        text_display.visible = False
+        copiar_btn.visible = False
+        limpar_btn.visible = False
+        page.update()
 
     def toggle_theme(e):
         nonlocal is_dark
@@ -57,6 +68,7 @@ def main(page: ft.Page):
         theme_button.icon = ft.Icons.DARK_MODE if is_dark else ft.Icons.LIGHT_MODE
         page.update()
 
+    # ---------------- COMPONENTES ----------------
     is_dark = False
 
     theme_button = ft.IconButton(
@@ -68,37 +80,43 @@ def main(page: ft.Page):
         alignment=ft.MainAxisAlignment.SPACE_BETWEEN,
         vertical_alignment=ft.CrossAxisAlignment.CENTER,
         controls=[
-            ft.Text("Gerador de Senhas", size=28, weight="bold"),
+            ft.Text("🔐 Gerador de Senhas", size=28, weight="bold"),
             theme_button
         ]
-    )
-
-    title_switch_container = ft.Container(
-        content=title_switch_row,
-        padding=ft.padding.only(top=50),
     )
 
     senha_output = ft.TextField(
         value="",
         label="Senha Gerada",
         read_only=True,
-        width=280,
-        bgcolor=ft.Colors.ON_SURFACE_VARIANT
+        width=300,
+        bgcolor=ft.Colors.PURPLE_100,
+        border_color=ft.Colors.PURPLE,
+        color=ft.Colors.BLACK,  # texto sempre preto
+        label_style=ft.TextStyle(color=ft.Colors.BLACK)  # label sempre preto
     )
 
-    # Campo para exibir feedback de cópia
     text_display = ft.Text(
         value="",
         color=ft.Colors.GREEN,
         visible=False
     )
 
-    # Botão de copiar senha
     copiar_btn = ft.ElevatedButton(
-        text="COPIAR SENHA",
+        text="Copiar Senha",
         on_click=mostrar_senha_copiada,
-        color=ft.Colors.ON_SECONDARY,
-        bgcolor=ft.Colors.SECONDARY,
+        color=ft.Colors.WHITE,
+        bgcolor=ft.Colors.PURPLE,
+        width=200,
+        visible=False
+    )
+
+    limpar_btn = ft.ElevatedButton(
+        text="Limpar",
+        on_click=limpar_senha,
+        color=ft.Colors.WHITE,
+        bgcolor=ft.Colors.PURPLE_700,
+        width=200,
         visible=False
     )
 
@@ -107,17 +125,44 @@ def main(page: ft.Page):
         max=20,
         value=12,
         divisions=12,
-        label="CARACTERES: {value}"
+        label="CARACTERES: {value}",
+        active_color=ft.Colors.PURPLE,
+        inactive_color=ft.Colors.PURPLE_200
     )
 
-    upper_switch = ft.Switch(label="Letras maiúsculas")
-    lower_switch = ft.Switch(label="Letras minúsculas", value=True)
-    numbers_switch = ft.Switch(label="Incluir números")
-    symbols_switch = ft.Switch(label="Incluir símbolos")
+    # ---- Switches com cor personalizada ----
+    upper_switch = ft.Switch(
+        label="Letras maiúsculas",
+        active_color=ft.Colors.PURPLE,
+        track_color=ft.Colors.PURPLE_100,
+        label_style=ft.TextStyle(color=ft.Colors.PURPLE)
+    )
+
+    lower_switch = ft.Switch(
+        label="Letras minúsculas",
+        value=True,
+        active_color=ft.Colors.PURPLE,
+        track_color=ft.Colors.PURPLE_100,
+        label_style=ft.TextStyle(color=ft.Colors.PURPLE)
+    )
+
+    numbers_switch = ft.Switch(
+        label="Incluir números",
+        active_color=ft.Colors.PURPLE,
+        track_color=ft.Colors.PURPLE_100,
+        label_style=ft.TextStyle(color=ft.Colors.PURPLE)
+    )
+
+    symbols_switch = ft.Switch(
+        label="Incluir símbolos",
+        active_color=ft.Colors.PURPLE,
+        track_color=ft.Colors.PURPLE_100,
+        label_style=ft.TextStyle(color=ft.Colors.PURPLE)
+    )
 
     preferencias_column = ft.Column(
         [
-            ft.Text("PREFERÊNCIAS", size=16, weight="bold"),
+            ft.Text("⚙️ PREFERÊNCIAS", size=16, weight="bold", color=ft.Colors.PURPLE_800),
             upper_switch,
             lower_switch,
             numbers_switch,
@@ -128,33 +173,29 @@ def main(page: ft.Page):
         spacing=10
     )
 
-    preferencias_container = ft.Container(
-        content=preferencias_column,
-        padding=ft.padding.all(20),
-        alignment=ft.alignment.top_left
-    )
-
     gerar_button = ft.ElevatedButton(
-        text="GERAR SENHA",
+        text="Gerar Senha",
         on_click=gerar_senha,
-        color=ft.Colors.ON_PRIMARY,
-        bgcolor=ft.Colors.PRIMARY
+        color=ft.Colors.WHITE,
+        bgcolor=ft.Colors.PURPLE,
+        width=250
     )
 
+    # ---------------- LAYOUT ----------------
     page.add(
         ft.Column(
             [
-                title_switch_container,
+                title_switch_row,
                 senha_output,
                 text_display,
-                copiar_btn,
+                ft.Row([copiar_btn, limpar_btn], spacing=10, alignment="center"),
                 slider,
-                preferencias_container,
+                preferencias_column,
                 gerar_button,
             ],
             alignment=ft.MainAxisAlignment.START,
             horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-            spacing=10,
+            spacing=15,
         )
     )
 
