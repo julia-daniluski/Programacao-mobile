@@ -26,7 +26,7 @@ def main(page: ft.Page):
             resposta.value = "Nome muito curto!"
             resposta.color = ft.Colors.ORANGE
         else:
-            resposta.value = f" ola, {nome_digitado}! Prazer em conhecê-lo(a)!"
+            resposta.value = f" Olá, {nome_digitado}! Prazer em conhecê-lo(a)!"
             resposta.color = ft.Colors.GREEN
 
         page.update()
